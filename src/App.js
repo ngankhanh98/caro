@@ -46,6 +46,7 @@ class Game extends React.Component {
           squares: Array(400).fill(null)
         }
       ],
+      locations:[], // array store location of individual move
       stepNumber: 0,
       xIsNext: true,
       winner: null
@@ -54,6 +55,7 @@ class Game extends React.Component {
 
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const locations = this.state.locations.slice();
     const board = this.state.history[this.state.stepNumber];
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -62,7 +64,7 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
-
+    locations.push(i);
     this.setState({ winner: calculateWinner(i, board, squares[i]) });
     this.setState({
       history: history.concat([
@@ -71,11 +73,12 @@ class Game extends React.Component {
         }
       ]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+      locations: locations
     });
   }
   handleClickReset() {
-    this.setState({ history: [{ squares: Array(400).fill(null) }], winner: null, xNext: true, stepNumber: 0 });
+    this.setState({ history: [{ squares: Array(400).fill(null) }], winner: null, xNext: true, stepNumber: 0, locations: []});
   }
 
   jumpTo(step) {
@@ -89,10 +92,18 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.state.winner;
+    
 
+    
     const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
+      const location = this.state.locations;
+
+      let row = Math.floor(location[move-1] / 20);
+      let col = location[move-1] % 20;
+      let colrow = col!=null && row!=null ? `(${col}, ${row})`:``;
+
+            const desc = move ?
+        'Go to move #' + move + colrow :
         'Go to game start';
       return (
         <li key={move}>
@@ -132,8 +143,6 @@ function calculateWinner(i, squares, value) {
   let count = 0;
   let winner = null;
 
-  console.log(squares.squares[1]);
-  console.log(row, col);
 
   // check row
   for (let k = 0; k < 20; k++) {
@@ -171,8 +180,7 @@ function calculateWinner(i, squares, value) {
   }
   // check anti-diagonal
   let inital_pos_anti = i % 21 + 2 * row;
-  // console.log(i);
-  //console.log(inital_pos_anti);
+
   for (let k = 0; k < 20; k++) {
     if (squares.squares[inital_pos_anti + 19 * k] !== value) {
       count = 0;
