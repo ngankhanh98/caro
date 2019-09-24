@@ -49,3 +49,13 @@ body {
 .bold {
   font-weight: bold;
 }
+
+.descrease {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.increase {
+  display: flex;
+  flex-direction: column;
+}

@@ -61,6 +61,7 @@ class Game extends React.Component {
       winner: null,
       selectedStep: null,
       winArea: [], // array stores winning locations
+      isIncrease: true
     };
   }
 
@@ -113,12 +114,16 @@ class Game extends React.Component {
     this.setState({selectedStep: step});
 }
 
+  handleSort(){
+    this.setState({isIncrease: !this.state.isIncrease});
+
+  }
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.state.winner;
     const winArea = this.state.winArea;
-
+    const increase = this.state.isIncrease;
     
     const moves = history.map((step, move) => {
       const location = this.state.locations;
@@ -144,6 +149,8 @@ class Game extends React.Component {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
 
+    let sort = increase ? "A to Z": "Z to A";
+
     return (
       <div className="game">
         <div className="game-board">
@@ -155,7 +162,8 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <button onClick={()=>this.handleSort()}>{sort}</button>
+          <ol className={increase ? "inscrease" : "descrease"} onChange={this.handleSort.bind(this)}>{moves}</ol>
         </div>
       </div>
     );
