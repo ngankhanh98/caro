@@ -1,22 +1,47 @@
-.App {
+/* @import "~antd/dist/antd.css";
+@import url("https://fonts.googleapis.com/css?family=Quicksand:500&display=swap"); */
+
+body {
+  font-family: "Quicksand", sans-serif;
+  font-size: 18px;
+}
+
+.square {
+  background-color: #14bdac;
+  float: left;
+  font-size: 24px;
+  line-height: 25px;
+  height: 28px;
+  padding: 0;
   text-align: center;
+  width: 28px;
+  border-radius: 0;
+  border-color: #0da192;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.game {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.game-board {
+  flex-direction: row;
+  padding: 0.1em;
+}
+
+.container {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column;
 }
 
-.App-link {
-  color: #09d3ac;
+.cross {
+  color: #545454;
+  font-weight: lighter;
+}
+
+.nought {
+  font-size: 19px;
+  color: beige;
 }
