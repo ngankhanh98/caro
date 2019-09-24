@@ -11,7 +11,7 @@ function Square(props) {
 
 class Board extends React.Component {
   renderSquare(i) {
-    console.log(`i + ${i}`);
+    //console.log(`i + ${i}`);
     return (
       <Square
         key={i}
@@ -72,12 +72,13 @@ class Game extends React.Component {
     squares[i] = this.state.xIsNext ? "X" : "O";
     locations.push(i);
     winArea = calculateWinner(i, board, squares[i]);
-    if (winArea)
+    console.log(winArea);
+    if (winArea.length ===5)
     {
         winner = squares[i];
     }
     this.setState({ winner: winner, winArea: winArea});
-    console.log(this.state.winner);
+    // console.log(this.state.winner);
     //this.setState({ winner: winner});
     this.setState({
       history: history.concat([
@@ -90,7 +91,7 @@ class Game extends React.Component {
       locations: locations,
       
     });
-    console.log(this.state.boldPosition);
+    // console.log(this.state.boldPosition);
   }
 
   jumpTo(step) {
@@ -174,8 +175,6 @@ function calculateWinner(i, squares, value) {
     }
     if (count === 4) {
       winArea.push(i);
-      
-      console.log(winArea);
       return winArea;
     }
   }
@@ -192,9 +191,7 @@ function calculateWinner(i, squares, value) {
       winArea.push(k * 20 + col);
     }
     if (count === 4) {
-      winArea.push(i);
-
-      console.log(winArea);
+      winArea.push(i);      
       return winArea;
     }
   }
@@ -211,8 +208,6 @@ function calculateWinner(i, squares, value) {
     }
     if (count === 4) {
       winArea.push(i);
-
-      console.log(winArea);
       return winArea;
     }
   }
@@ -230,8 +225,6 @@ function calculateWinner(i, squares, value) {
     }
     if (count === 4) {
       winArea.push(i);
-
-      console.log(winArea);
       return winArea;
     }
   }
