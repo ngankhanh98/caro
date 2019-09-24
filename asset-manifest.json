@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/caro/static/css/main.03d4a463.chunk.css",
-    "main.js": "/caro/static/js/main.80547849.chunk.js",
-    "main.js.map": "/caro/static/js/main.80547849.chunk.js.map",
+    "main.css": "/caro/static/css/main.20276234.chunk.css",
+    "main.js": "/caro/static/js/main.3fd528f9.chunk.js",
+    "main.js.map": "/caro/static/js/main.3fd528f9.chunk.js.map",
     "runtime-main.js": "/caro/static/js/runtime-main.bea84211.js",
     "runtime-main.js.map": "/caro/static/js/runtime-main.bea84211.js.map",
     "static/js/2.1a0b7844.chunk.js": "/caro/static/js/2.1a0b7844.chunk.js",
     "static/js/2.1a0b7844.chunk.js.map": "/caro/static/js/2.1a0b7844.chunk.js.map",
     "index.html": "/caro/index.html",
-    "precache-manifest.d45145ab1d9a8004d5fc5e601e6b93b9.js": "/caro/precache-manifest.d45145ab1d9a8004d5fc5e601e6b93b9.js",
+    "precache-manifest.c3caa76f77a20863d5ad4e66e9bad982.js": "/caro/precache-manifest.c3caa76f77a20863d5ad4e66e9bad982.js",
     "service-worker.js": "/caro/service-worker.js",
-    "static/css/main.03d4a463.chunk.css.map": "/caro/static/css/main.03d4a463.chunk.css.map"
+    "static/css/main.20276234.chunk.css.map": "/caro/static/css/main.20276234.chunk.css.map"
   }
 }
