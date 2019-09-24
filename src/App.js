@@ -2,8 +2,12 @@ import React from 'react';
 import './App.css';
 
 function Square(props) {
+  const highlightwin = {
+    backgroundColor: 'yellow'
+  };
+
   return (
-    <button key={props.key} className="square" onClick={props.onClick} >
+    <button key={props.key} className="square" onClick={props.onClick} style={props.winningSquare? highlightwin : null}>
       {props.value}
     </button>
   );
@@ -11,12 +15,15 @@ function Square(props) {
 
 class Board extends React.Component {
   renderSquare(i) {
-    //console.log(`i + ${i}`);
+   
+    let winningSquare = this.props.winner && this.props.winner.includes(i) ? true : false;
+    console.log(winningSquare);
     return (
       <Square
         key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        winningSquare={winningSquare}
       />
     );
   }
@@ -72,14 +79,12 @@ class Game extends React.Component {
     squares[i] = this.state.xIsNext ? "X" : "O";
     locations.push(i);
     winArea = calculateWinner(i, board, squares[i]);
-    console.log(winArea);
     if (winArea.length ===5)
     {
         winner = squares[i];
     }
     this.setState({ winner: winner, winArea: winArea});
-    // console.log(this.state.winner);
-    //this.setState({ winner: winner});
+  
     this.setState({
       history: history.concat([
         {
@@ -91,7 +96,7 @@ class Game extends React.Component {
       locations: locations,
       
     });
-    // console.log(this.state.boldPosition);
+  
   }
 
   jumpTo(step) {
@@ -112,7 +117,7 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = this.state.winner;
-    
+    const winArea = this.state.winArea;
 
     
     const moves = history.map((step, move) => {
@@ -122,7 +127,7 @@ class Game extends React.Component {
       let col = location[move-1] % 20;
       let colrow = col!=null && row!=null ? ` (${col}, ${row})`:``;
 
-            const desc = move ?
+      const desc = move ?
         'Go to move #' + move + colrow :
         'Go to game start';
       return (
@@ -145,6 +150,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
+            winner={winner && winArea.length === 5 ? winArea:null}
           />
         </div>
         <div className="game-info">
@@ -221,7 +227,7 @@ function calculateWinner(i, squares, value) {
     }
     else {
       count++;
-      winArea.push(inital_pos + 21 * k);
+      winArea.push(inital_pos_anti + 19 * k);
     }
     if (count === 4) {
       winArea.push(i);
