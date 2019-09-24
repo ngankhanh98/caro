@@ -77,16 +77,19 @@ class Game extends React.Component {
       locations: locations
     });
   }
-  handleClickReset() {
-    this.setState({ history: [{ squares: Array(400).fill(null) }], winner: null, xNext: true, stepNumber: 0, locations: []});
-  }
 
   jumpTo(step) {
+    // reset the game
+    if(step===0)
+    {
+      this.setState({ history: [{ squares: Array(400).fill(null) }], winner: null, xNext: true, stepNumber: 0, locations: [] });
+    } else{
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0
     });
   }
+}
 
   render() {
     const history = this.state.history;
@@ -100,7 +103,7 @@ class Game extends React.Component {
 
       let row = Math.floor(location[move-1] / 20);
       let col = location[move-1] % 20;
-      let colrow = col!=null && row!=null ? `(${col}, ${row})`:``;
+      let colrow = col!=null && row!=null ? ` (${col}, ${row})`:``;
 
             const desc = move ?
         'Go to move #' + move + colrow :
@@ -126,7 +129,6 @@ class Game extends React.Component {
             squares={current.squares}
             onClick={i => this.handleClick(i)}
           />
-          <button onClick={() => this.handleClickReset()}>RESET THE GAME</button>
         </div>
         <div className="game-info">
           <div>{status}</div>
