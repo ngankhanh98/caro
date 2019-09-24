@@ -3,7 +3,7 @@ import './App.css';
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <button key={props.key} className="square" onClick={props.onClick} >
       {props.value}
     </button>
   );
@@ -11,8 +11,10 @@ function Square(props) {
 
 class Board extends React.Component {
   renderSquare(i) {
+    console.log(`i + ${i}`);
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -46,10 +48,12 @@ class Game extends React.Component {
           squares: Array(400).fill(null)
         }
       ],
-      locations:[], // array store location of individual move
+      locations:[], // array stores location of individual move
       stepNumber: 0,
       xIsNext: true,
-      winner: null
+      winner: null,
+      selectedStep: null,
+      winArea: [], // array stores winning locations
     };
   }
 
@@ -59,13 +63,22 @@ class Game extends React.Component {
     const board = this.state.history[this.state.stepNumber];
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    let winner;
+    let winArea;
 
     if (this.state.winner || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
     locations.push(i);
-    this.setState({ winner: calculateWinner(i, board, squares[i]) });
+    winArea = calculateWinner(i, board, squares[i]);
+    if (winArea)
+    {
+        winner = squares[i];
+    }
+    this.setState({ winner: winner, winArea: winArea});
+    console.log(this.state.winner);
+    //this.setState({ winner: winner});
     this.setState({
       history: history.concat([
         {
@@ -74,21 +87,24 @@ class Game extends React.Component {
       ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      locations: locations
+      locations: locations,
+      
     });
+    console.log(this.state.boldPosition);
   }
 
   jumpTo(step) {
     // reset the game
     if(step===0)
     {
-      this.setState({ history: [{ squares: Array(400).fill(null) }], winner: null, xNext: true, stepNumber: 0, locations: [] });
+      this.setState({ history: [{ squares: Array(400).fill(null) }], winner: null, xNext: true, stepNumber: 0 });
     } else{
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0
     });
-  }
+    }
+    this.setState({selectedStep: step});
 }
 
   render() {
@@ -110,7 +126,7 @@ class Game extends React.Component {
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)} className={this.state.selectedStep !== move ? '' : 'bold'}>{desc}</button>
         </li>
       );
     });
@@ -143,30 +159,43 @@ function calculateWinner(i, squares, value) {
   let row = Math.floor(i / 20);
   let col = i % 20;
   let count = 0;
-  let winner = null;
+  let winArea = [];
 
 
   // check row
   for (let k = 0; k < 20; k++) {
     if (squares.squares[row * 20 + k] !== value) {
       count = 0;
-
+      winArea = winArea.slice(0,0);
     }
-    else count++;
+    else {
+      count++;
+      winArea.push(row * 20 + k);
+    }
     if (count === 4) {
-      return value;
+      winArea.push(i);
+      
+      console.log(winArea);
+      return winArea;
     }
-
   }
+  
 
   // check col
   for (let k = 0; k < 20; k++) {
     if (squares.squares[k * 20 + col] !== value) {
       count = 0;
+      winArea = winArea.slice(0, 0);
     }
-    else count++;
+    else {
+      count++;
+      winArea.push(k * 20 + col);
+    }
     if (count === 4) {
-      return value;
+      winArea.push(i);
+
+      console.log(winArea);
+      return winArea;
     }
   }
   // check diagonal
@@ -174,10 +203,17 @@ function calculateWinner(i, squares, value) {
   for (let k = 0; k < 20; k++) {
     if (squares.squares[inital_pos + 21 * k] !== value) {
       count = 0;
+      winArea = winArea.slice(0, 0);
     }
-    else count++;
+    else {
+      count++;
+      winArea.push(inital_pos + 21 * k);
+    }
     if (count === 4) {
-      return value;
+      winArea.push(i);
+
+      console.log(winArea);
+      return winArea;
     }
   }
   // check anti-diagonal
@@ -186,15 +222,20 @@ function calculateWinner(i, squares, value) {
   for (let k = 0; k < 20; k++) {
     if (squares.squares[inital_pos_anti + 19 * k] !== value) {
       count = 0;
+      winArea = winArea.slice(0, 0);
     }
-    else count++;
+    else {
+      count++;
+      winArea.push(inital_pos + 21 * k);
+    }
     if (count === 4) {
-      return value;
+      winArea.push(i);
+
+      console.log(winArea);
+      return winArea;
     }
   }
-
-
-  return winner;
+  return winArea;
 }
 
 export default Game;
