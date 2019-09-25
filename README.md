@@ -26,3 +26,7 @@ Open [https://ngankhanh98.github.io/caro/](https://ngankhanh98.github.io/caro/) 
 - [x] Bold the currently selected item in the move list.
 - [x] Add a toggle button that lets you sort the moves in either ascending or descending order.
 - [x] When someone wins, highlight the three squares that caused the win.
+
+## References
+
+_Wolfie_, Add class to specific element in React onClick, 2017 [[link](https://stackoverflow.com/questions/45509614/add-class-to-specific-element-in-react-onclick)]
