@@ -68,5 +68,5 @@ export function calculateWinner(i, squares, value) {
       return winArea;
     }
   }
-  return winArea;
+  return null;
 }
