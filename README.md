@@ -1,24 +1,20 @@
+# Tic tac toe game++
+_(with every move being stored, and by the way, it's 'ca rô' game in Vietnam)_
 ## 📦 Installation
 
-### `git clone https://github.com/ngankhanh98/caro.git`
+From your command line (you're supposed to have git and Nodejs already installed in your environment)
+```bash
+# Clone this repository
+$ git clone https://github.com/ngankhanh98/caro.git
+$ cd caro
 
-Downloads source code for VCS git.
+# Install essential packages
+$ npm install
 
-In the project directory, you can run:
-
-### `npm install`
-
-Downloads all the essential packages required for the app.
-
-### `npm start`
-
-Runs the app<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `npm run deploy`
-
-Runs the app in deploy mode.<br>
-Open [https://ngankhanh98.github.io/caro/](https://ngankhanh98.github.io/caro/) to view it in the browser
+# Run in localhost
+$ npm start
+```
+Or you can check this https://ngankhanh98.github.io/caro/
 
 ## 🎉 Features
 
@@ -27,6 +23,3 @@ Open [https://ngankhanh98.github.io/caro/](https://ngankhanh98.github.io/caro/) 
 - [x] Add a toggle button that lets you sort the moves in either ascending or descending order.
 - [x] When someone wins, highlight the three squares that caused the win.
 
-## References
-
-_Wolfie_, Add class to specific element in React onClick, 2017 [[link](https://stackoverflow.com/questions/45509614/add-class-to-specific-element-in-react-onclick)]
